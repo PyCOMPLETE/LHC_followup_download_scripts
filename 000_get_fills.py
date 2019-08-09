@@ -5,7 +5,7 @@ import LHCMeasurementTools.LHC_Fills as Fills
 import pickle
 
 periods = [
-'2018_04_14 00:00:00!2018_10_31 00:00:00',
+'2018_05_28 00:00:00!2018_05_31 00:00:00',
 ]
 
 pkl_name = 'fills_and_bmodes.pkl'
