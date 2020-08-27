@@ -16,7 +16,7 @@ with open(fills_pkl_name, 'rb') as fid:
 
 group_varlist = [] 
 
-for kk in HL.variable_lists_heatloads.keys():
+for kk in list(HL.variable_lists_heatloads.keys()):
 	group_varlist+=HL.variable_lists_heatloads[kk]
 
 

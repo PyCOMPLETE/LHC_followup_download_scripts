@@ -19,4 +19,4 @@ if len(sys.argv)>2:
     fillnumbers = sys.argv[2].split(',')
     reconfigure_pickle(picklename, fillnumbers)
 else:
-    print "Provide picklename and list of fills!"
+    print("Provide picklename and list of fills!")

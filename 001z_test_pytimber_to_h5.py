@@ -1,5 +1,5 @@
 import os
-import cPickle as pickle
+import pickle as pickle
 
 import LHCMeasurementTools.TimberManager as tm
 import LHCMeasurementTools.pytimber_interface as pti

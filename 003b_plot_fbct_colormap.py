@@ -32,26 +32,26 @@ with open(pkl_name, 'rb') as fid:
 
 
 if len(sys.argv)>1:
-    print '--> Processing fill {:s}'.format(sys.argv[1])
+    print('--> Processing fill {:s}'.format(sys.argv[1]))
     filln = int(sys.argv[1])
-    print(sys.argv)
+    print((sys.argv))
 
-    if np.any(map(lambda s: ('--cmap' in s), sys.argv)):
-        i_arg = np.where(map(lambda s: ('--cmap' in s), sys.argv))[0][0]
+    if np.any([('--cmap' in s) for s in sys.argv]):
+        i_arg = np.where([('--cmap' in s) for s in sys.argv])[0][0]
         v_arg = sys.argv[i_arg]
         cmap = str(v_arg.split('=')[-1])
 
-    if np.any(map(lambda s: ('--clim' in s), sys.argv)):
-        i_arg = np.where(map(lambda s: ('--clim' in s), sys.argv))[0][0]
+    if np.any([('--clim' in s) for s in sys.argv]):
+        i_arg = np.where([('--clim' in s) for s in sys.argv])[0][0]
         v_arg = sys.argv[i_arg]
         clim = v_arg.split('=')[-1]
-        color_scale_limits = map(float, clim.split(','))
+        color_scale_limits = list(map(float, clim.split(',')))
 
-    if np.any(map(lambda s: ('--ylim' in s), sys.argv)):
-        i_arg = np.where(map(lambda s: ('--ylim' in s), sys.argv))[0][0]
+    if np.any([('--ylim' in s) for s in sys.argv]):
+        i_arg = np.where([('--ylim' in s) for s in sys.argv])[0][0]
         v_arg = sys.argv[i_arg]
         ylim = v_arg.split('=')[-1]
-        ylim = map(float, ylim.split(','))
+        ylim = list(map(float, ylim.split(',')))
 
     # if '--injection' in sys.argv:
     #     print 'Scans in the INJPHYS-PRERAMP beam modes'
@@ -73,7 +73,7 @@ if len(sys.argv)>1:
 
 else:
     filln = max(dict_fill_bmodes.keys())
-    print '--> Processing latest fill: %d'%filln
+    print('--> Processing latest fill: %d'%filln)
 
 
 t_ref = dict_fill_bmodes[filln]['t_startfill']
@@ -88,7 +88,7 @@ plt.close('all')
 # Loop over beams
 beam_col = ['b','r']
 for beam in [1, 2]:
-    print '\nPreparing plot beam %d...' %beam
+    print('\nPreparing plot beam %d...' %beam)
 
     fbct = FBCT.FBCT(fill_dict, beam=beam)
     fbct_t_all, fbct_v_all = fbct.uniform_time()
@@ -103,7 +103,7 @@ for beam in [1, 2]:
     n_fills = len(i_start_fills)
 
     # Loop over fills
-    for fill_curr in xrange(n_fills):
+    for fill_curr in range(n_fills):
         i_fig += 1
         i_start_fill = i_start_fills[fill_curr]
         if len(i_stop_fills) == 0:
@@ -112,7 +112,7 @@ for beam in [1, 2]:
             try:
                 i_stop_fill = i_stop_fills[fill_curr]
             except IndexError as idxErr:
-                print idxErr
+                print(idxErr)
                 i_stop_fill = -1
         fbct_v = fbct_v_all[i_start_fill:i_stop_fill,:]
         fbct_t = fbct_t_all[i_start_fill:i_stop_fill]

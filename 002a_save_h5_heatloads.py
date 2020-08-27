@@ -22,15 +22,15 @@ if not os.path.isdir(h5folder):
 
 
 for filln in sorted(dict_fill_bmodes.keys()):
-    print 'Fill n.',filln
+    print('Fill n.',filln)
     h5filename = h5folder+'/heatloads_all_fill_%d.h5'%filln
 
     if dict_fill_bmodes[filln]['flag_complete'] is False:
-        print "Fill incomplete --> no h5 convesion"
+        print("Fill incomplete --> no h5 convesion")
         continue
 
     if os.path.isfile(h5filename) and dict_fill_bmodes[filln]['flag_complete'] is True:
-        print "Already complete and in h5"
+        print("Already complete and in h5")
         continue
 
     try:
@@ -43,7 +43,7 @@ for filln in sorted(dict_fill_bmodes.keys()):
 
         varlist += LHC_BCT.variable_list()
         varlist += LHC_Energy.variable_list()
-        for kk in LHC_Heatloads.variable_lists_heatloads.keys():
+        for kk in list(LHC_Heatloads.variable_lists_heatloads.keys()):
             varlist+=LHC_Heatloads.variable_lists_heatloads[kk]
 
 
@@ -56,8 +56,8 @@ for filln in sorted(dict_fill_bmodes.keys()):
 
 
         with h5py.File(h5filename, 'w') as fid:
-            for kk in dict_to_h5.keys():
+            for kk in list(dict_to_h5.keys()):
                 fid[kk] = dict_to_h5[kk]
     except IOError as err:
-        print 'Skipped!!! Got:'
-        print err
+        print('Skipped!!! Got:')
+        print(err)
