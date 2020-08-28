@@ -4,10 +4,10 @@ import os
 
 import LHCMeasurementTools.LHC_Heatloads as HL
 
-csv_folder = 'fill_heatload_data_csvs'
+h5_folder = 'fill_heatload_data_h5s'
 
-if not os.path.isdir(csv_folder):
-    os.mkdir(csv_folder)
+if not os.path.isdir(h5_folder):
+    os.mkdir(h5_folder)
 
 fills_pkl_name = 'fills_and_bmodes.pkl'
 with open(fills_pkl_name, 'rb') as fid:
@@ -20,8 +20,8 @@ for kk in list(HL.variable_lists_heatloads.keys()):
 	group_varlist+=HL.variable_lists_heatloads[kk]
 
 
-saved_pkl = csv_folder+'/saved_fills.pkl'
-filepath =  csv_folder+'/heatloads_fill'
+saved_pkl = h5_folder+'/saved_fills.pkl'
+filepath =  h5_folder+'/heatloads_fill'
 
 
 save_variables_and_pickle(varlist=group_varlist, file_path_prefix=filepath, 

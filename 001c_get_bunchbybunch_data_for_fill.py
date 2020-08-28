@@ -8,17 +8,17 @@ from LHCMeasurementTools.LHC_Fill_LDB_Query import save_variables_and_pickle
 import pickle
 import os
 
-csv_folder = 'fill_bunchbybunch_data_csvs'
-filepath =  csv_folder+'/bunchbybunch_data_fill'
+h5_folder = 'fill_bunchbybunch_data_h5s'
+filepath =  h5_folder+'/bunchbybunch_data_fill'
 
-if not os.path.isdir(csv_folder):
-    os.mkdir(csv_folder)
-    
+if not os.path.isdir(h5_folder):
+    os.mkdir(h5_folder)
+
 fills_pkl_name = 'fills_and_bmodes.pkl'
 with open(fills_pkl_name, 'rb') as fid:
     dict_fill_bmodes = pickle.load(fid)
 
-saved_pkl = csv_folder+'/saved_fills.pkl'
+saved_pkl = h5_folder+'/saved_fills.pkl'
 
 varlist = []
 varlist += FBCT.variable_list()
