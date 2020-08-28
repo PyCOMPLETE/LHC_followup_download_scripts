@@ -37,8 +37,10 @@ for filln in sorted(dict_fill_bmodes.keys())[::-1]:
         continue
     try:
         fill_dict = {}
-        fill_dict.update(tm.parse_timber_file('fill_basic_data_csvs/basic_data_fill_%d.csv'%filln, verbose=False))
-        fill_dict.update(tm.parse_timber_file('fill_bunchbybunch_data_csvs/bunchbybunch_data_fill_%d.csv'%filln, verbose=False))
+        fill_dict.update(tm.CalsVariables_from_h5(
+            'fill_basic_data_h5s/basic_data_fill_%d.h5'%filln))
+        fill_dict.update(tm.CalsVariables_from_h5(
+            'fill_bunchbybunch_data_h5s/bunchbybunch_data_fill_%d.h5'%filln))
 
         fbct_bx = {}
         bct_bx = {}
