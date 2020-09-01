@@ -18,7 +18,9 @@ periods = [
 #'2017_09_25 16:00:00!2017_09_26 16:00:00', #
 ]
 
-pkl_name = 'fills_and_bmodes.pkl'
+#pkl_name = 'fills_and_bmodes.pkl'
+json_name = 'fills_and_bmodes.json'
+
 
 
 ldb = pytimber.LoggingDB()
@@ -42,7 +44,9 @@ for period in periods:
     # Make pickle
     dict_fill_info.update(Fills.make_dict(data, t_stop))
 
-with open(pkl_name, 'wb') as fid:
-      pickle.dump(dict_fill_info, fid)
+# with open(pkl_name, 'wb') as fid:
+#     pickle.dump(dict_fill_info, fid)
 
-
+import json
+with open(json_name, 'w') as fid:
+    json.dump(dict_fill_info, fid)
