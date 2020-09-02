@@ -2,7 +2,7 @@ import LHCMeasurementTools.LHC_Energy as Energy
 import LHCMeasurementTools.LHC_BCT as BCT
 
 import LHCMeasurementTools.LHC_Fills as Fills
-from LHCMeasurementTools.LHC_Fill_LDB_Query import save_variables_and_pickle
+from LHCMeasurementTools.LHC_Fill_LDB_Query import save_variables_and_json
 
 import json
 import os
@@ -18,7 +18,7 @@ with open(fills_json_name, 'r') as fid:
     ddd = json.load(fid)
     dict_fill_bmodes = {int(kk): ddd[kk] for kk in ddd.keys()}
 
-saved_pkl = h5_folder+'/saved_fills.pkl'
+saved_json = h5_folder+'/saved_fills.json'
 
 varlist = []
 varlist += Energy.variable_list()
@@ -30,6 +30,6 @@ import pytimber
 db = pytimber.LoggingDB(source='ldb')
 
 
-save_variables_and_pickle(varlist=varlist, file_path_prefix=filepath,
-                          save_pkl=saved_pkl, fills_dict=dict_fill_bmodes,
+save_variables_and_json(varlist=varlist, file_path_prefix=filepath,
+                          save_json=saved_json, fills_dict=dict_fill_bmodes,
                           db=db)
