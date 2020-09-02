@@ -3,6 +3,7 @@ import LHCMeasurementTools.LHC_BCT as BCT
 
 import LHCMeasurementTools.LHC_Fills as Fills
 from LHCMeasurementTools.LHC_Fill_LDB_Query import save_variables_and_json
+from LHCMeasurementTools.LHC_Fill_LDB_Query import load_fill_dict_from_json
 
 import json
 import os
@@ -14,9 +15,7 @@ if not os.path.isdir(h5_folder):
     os.mkdir(h5_folder)
 
 fills_json_name = 'fills_and_bmodes.json'
-with open(fills_json_name, 'r') as fid:
-    ddd = json.load(fid)
-    dict_fill_bmodes = {int(kk): ddd[kk] for kk in ddd.keys()}
+dict_fill_bmodes = load_fill_dict_from_json(fills_json_name)
 
 saved_json = h5_folder+'/saved_fills.json'
 
