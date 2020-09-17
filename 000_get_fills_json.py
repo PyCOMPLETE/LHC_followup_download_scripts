@@ -21,8 +21,6 @@ periods = [
 #pkl_name = 'fills_and_bmodes.pkl'
 json_name = 'fills_and_bmodes.json'
 
-
-
 ldb = pytimber.LoggingDB()
 
 dict_fill_info = {}
