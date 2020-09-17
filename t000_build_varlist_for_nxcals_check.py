@@ -33,5 +33,6 @@ for vf in varfiles:
     with open(vf, 'r') as f:
         varlist += f.read().splitlines()[0].split(',')
 
-
+with open('allvarnames.txt', 'w') as fid:
+    fid.writelines([vv+'\n' for vv in varlist])
 
