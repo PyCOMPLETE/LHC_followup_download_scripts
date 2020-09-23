@@ -37,21 +37,32 @@ class NXCalsFastQuery(NXCals):
 
 db = NXCalsFastQuery()
 
-varlst = ['QBBI_A31L2_TT824.POSST',
- 'QQBI_13L5_TT824.POSST',
- 'QBBI_B13R4_TT826.POSST',
- 'QBBI_A34L5_TT826.POSST']
+varfname = 'hlvarnames.txt'
+with open(varfname, 'r') as fid:
+    allvarlist = [vv.replace('\n', '') for vv in fid.readlines()]
 
-tst = time.time()
-print(f'Start query, {len(varlst)} variables...')
-data = db.get(varlst,
-        t1='2018-05-30 06:41:52.000',
-        t2='2018-05-31 18:18:18.000',
-        system='WINCCOA')
-print('Done query')
-tdone = time.time()
+# Select temperatures and heaters
+allvarlist = [vv for vv in allvarlist if ('_TT8' in vv) or ('_EH8' in vv)]
 
-Dt = tdone - tst
+import random
 
-print(f'Elapsed {Dt}')
+n_test_list = [1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048]
+Dt_list = []
+for nn in n_test_list:
+    random.shuffle(allvarlist)
+    varlst = allvarlist[:nn]
+    tst = time.time()
+    print(f'Start query, {len(varlst)} variables...')
+    data = db.get(varlst,
+            t1='2018-05-30 06:41:52.000',
+            t2='2018-05-31 18:18:18.000',
+            system='WINCCOA')
+    print('Done query')
+    tdone = time.time()
+
+    Dt = tdone - tst
+
+    print(f'Elapsed {Dt}')
+
+    Dt_list.append(Dt)
 
