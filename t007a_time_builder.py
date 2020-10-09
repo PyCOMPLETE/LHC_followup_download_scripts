@@ -2,8 +2,6 @@ import time
 
 import numpy as np
 
-t_start = '2018-05-30 06:41:52.000',
-t_end = '2018-05-31 18:18:18.000',
 
 from LHCMeasurementTools.TimberManager import NXCalsFastQuery
 db = NXCalsFastQuery(system='WINCCOA')
@@ -25,8 +23,8 @@ for nn in n_test_list:
     tst = time.time()
     print(f'Start query, {len(varlst)} variables...')
     data = db.get(varlst,
-            t1=t_start,
-            t2=t_end)
+            t1='2018-05-30 06:41:52.000',
+            t2='2018-05-31 18:18:18.000')
     print('Done query')
     tdone = time.time()
 
