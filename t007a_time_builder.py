@@ -1,7 +1,11 @@
 import time
-
 import numpy as np
 
+#t1 = '2018-05-30 06:41:52.000'
+#t2 = '2018-05-31 18:18:18.000'
+
+t1 = 1527662512.
+t2 = 1527790698.
 
 from LHCMeasurementTools.TimberManager import NXCalsFastQuery
 db = NXCalsFastQuery(system='WINCCOA')
@@ -22,9 +26,7 @@ for nn in n_test_list:
     varlst = allvarlist[:nn]
     tst = time.time()
     print(f'Start query, {len(varlst)} variables...')
-    data = db.get(varlst,
-            t1='2018-05-30 06:41:52.000',
-            t2='2018-05-31 18:18:18.000')
+    data = db.get(varlst, t1=t1, t2=t2)
     print('Done query')
     tdone = time.time()
 
