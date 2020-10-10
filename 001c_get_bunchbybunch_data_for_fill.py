@@ -27,8 +27,8 @@ varlist += BSRT.variable_list()
 
 # Switch between cals and nxcals
 import pytimber
-#db = pytimber.LoggingDB(source='nxcals')
-db = pytimber.LoggingDB(source='ldb')
+db = pytimber.LoggingDB(source='nxcals')
+#db = pytimber.LoggingDB(source='ldb')
 
 save_variables_and_json(varlist=varlist, file_path_prefix=filepath,
                           save_json=saved_json, fills_dict=dict_fill_bmodes,
