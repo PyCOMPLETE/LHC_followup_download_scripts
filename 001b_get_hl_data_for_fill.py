@@ -15,7 +15,9 @@ dict_fill_bmodes = load_fill_dict_from_json(fills_json_name)
 
 group_varlist = []
 for kk in list(HL.variable_lists_heatloads.keys()):
-	group_varlist+=HL.variable_lists_heatloads[kk]
+    if kk=='MODEL':
+        continue # Not available in in NXCALS
+    group_varlist+=HL.variable_lists_heatloads[kk]
 
 
 saved_json = h5_folder+'/saved_fills.json'
@@ -23,10 +25,13 @@ saved_json = h5_folder+'/saved_fills.json'
 # Switch between cals and nxcals
 import pytimber
 #db = pytimber.LoggingDB(source='nxcals')
-db = pytimber.LoggingDB(source='ldb')
+#db = pytimber.LoggingDB(source='ldb')
+
+from LHCMeasurementTools.TimberManager import NXCalsFastQuery
+db = NXCalsFastQuery(system='WINCCOA')
 
 save_variables_and_json(varlist=group_varlist, file_path_prefix=filepath,
                           save_json=saved_json, fills_dict=dict_fill_bmodes,
-                          db=db)
+                          db=db, n_vars_per_extraction=1000)
 
 
