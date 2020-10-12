@@ -21,8 +21,8 @@ periods = [
 #pkl_name = 'fills_and_bmodes.pkl'
 json_name = 'fills_and_bmodes.json'
 
-#ldb = pytimber.LoggingDB(source='nxcals')
-ldb = pytimber.LoggingDB()
+ldb = pytimber.LoggingDB(source='nxcals')
+#ldb = pytimber.LoggingDB()
 
 
 dict_fill_info = {}
@@ -36,46 +36,13 @@ for period in periods:
 
 
     # Get data from database
-#    varlist = Fills.get_varlist()
-#    data = tm.CalsVariables_from_pytimber(
-#            ldb.get(varlist, t_start, t_stop))
-
     data_fnum = tm.CalsVariables_from_pytimber(
             ldb.get(['HX:FILLN'], t_start, t_stop))
     list_bmodes = ldb.getLHCFillsByTime(t_start, t_stop)
 
-    # Make dictionary
-
-    ##### I develop here
-    filln_obj = Fills.fillnumber(data_fnum)
-    dict_bmodes = {int(ff['fillNumber']): ff for ff in list_bmodes}
-    fill_n_list = list(map(int, filln_obj.filln[filln_obj.filln > 0]))
-
-    dict_fill_bmodes = {}
-    for ii in range(len(fill_n_list)):
-        filln = fill_n_list[ii]
-        print('filln = %d'%filln)
-        dict_fill_bmodes[filln] = {}
-
-        t_startfill, t_endfill, flag_complete = filln_obj.fill_start_end(filln, t_stop)
-        dict_fill_bmodes[filln]['t_startfill'] = t_startfill
-        dict_fill_bmodes[filln]['t_endfill'] = t_endfill
-        dict_fill_bmodes[filln]['flag_complete'] = flag_complete
-
-        if filln in dict_bmodes.keys():
-            for mm in dict_bmodes[filln]['beamModes']:
-                bmode = mm['mode']
-                dict_fill_bmodes[filln]['t_start_'+bmode] = mm['startTime']
-                dict_fill_bmodes[filln]['t_stop_'+bmode] = mm['endTime']
-        else:
-            print(f'Warning! No beam mode info for fill {filln}')
-
-    #####
-    prrrr
-
-
-
-    dict_fill_info.update(Fills.make_dict(data, t_stop))
+    # Generate dictionary
+    dict_fill_info.update(Fills.make_fill_info_dict(
+                            data_fnum, list_bmodes, t_stop))
 
 # with open(pkl_name, 'wb') as fid:
 #     pickle.dump(dict_fill_info, fid)
