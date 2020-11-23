@@ -23,7 +23,7 @@ for kk in list(HL.variable_lists_heatloads.keys()):
 saved_json = h5_folder+'/saved_fills.json'
 
 # Switch between cals and nxcals
-import pytimber
+#import pytimber
 #db = pytimber.LoggingDB(source='nxcals')
 #db = pytimber.LoggingDB(source='ldb')
 
