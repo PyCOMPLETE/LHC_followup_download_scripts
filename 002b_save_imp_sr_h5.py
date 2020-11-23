@@ -1,7 +1,7 @@
-from __future__ import division, print_function
+
 import os
 import h5py
-import cPickle as pickle
+import pickle as pickle
 
 import LHCMeasurementTools.TimberManager as tm
 from LHCMeasurementTools.LHC_FBCT import FBCT
@@ -37,8 +37,10 @@ for filln in sorted(dict_fill_bmodes.keys())[::-1]:
         continue
     try:
         fill_dict = {}
-        fill_dict.update(tm.parse_timber_file('fill_basic_data_csvs/basic_data_fill_%d.csv'%filln, verbose=False))
-        fill_dict.update(tm.parse_timber_file('fill_bunchbybunch_data_csvs/bunchbybunch_data_fill_%d.csv'%filln, verbose=False))
+        fill_dict.update(tm.CalsVariables_from_h5(
+            'fill_basic_data_h5s/basic_data_fill_%d.h5'%filln))
+        fill_dict.update(tm.CalsVariables_from_h5(
+            'fill_bunchbybunch_data_h5s/bunchbybunch_data_fill_%d.h5'%filln))
 
         fbct_bx = {}
         bct_bx = {}
@@ -56,7 +58,7 @@ for filln in sorted(dict_fill_bmodes.keys())[::-1]:
             dict_to_h5[title+'!values'] = hl.heat_load_calculated_total
 
         with h5py.File(h5filename, 'w') as fid:
-            for key, value in dict_to_h5.iteritems():
+            for key, value in dict_to_h5.items():
                 fid[key] = value
 
     except Exception as e:

@@ -40,7 +40,7 @@ flag_normalize_to_bct = True
 
 
 if len(sys.argv)>1:
-    print '--> Processing fill {:s}'.format(sys.argv[1])
+    print('--> Processing fill {:s}'.format(sys.argv[1]))
     filln = int(sys.argv[1])
 
 myfontsz = 16
