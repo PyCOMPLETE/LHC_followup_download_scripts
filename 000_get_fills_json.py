@@ -49,4 +49,4 @@ for period in periods:
 
 import json
 with open(json_name, 'w') as fid:
-    json.dump(dict_fill_info, fid)
+    json.dump(dict_fill_info, fid, sort_keys=True, indent=4)
