@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 import matplotlib.colors as mlc
 import matplotlib.dates as mdt
 import pickle, sys, time, string
+import json
 
 plt.rcParams.update({'axes.labelsize': 18,
                      'axes.linewidth': 2,
@@ -26,9 +27,12 @@ totint_thresh = 2e11
 color_scale_limits = (0.65, 1.0)
 
 
-pkl_name = 'fills_and_bmodes.pkl'
-with open(pkl_name, 'rb') as fid:
-    dict_fill_bmodes = pickle.load(fid)
+# pkl_name = 'fills_and_bmodes.pkl'
+# with open(pkl_name, 'rb') as fid:
+#     dict_fill_bmodes = pickle.load(fid)
+json_name = 'fills_and_bmodes.json'
+with open(json_name, 'r') as fid:
+    dict_fill_bmodes = json.load(fid)
 
 
 if len(sys.argv)>1:
@@ -73,14 +77,14 @@ if len(sys.argv)>1:
 
 else:
     filln = max(dict_fill_bmodes.keys())
-    print('--> Processing latest fill: %d'%filln)
+    print('--> Processing latest fill: %s'%filln)
 
 
 t_ref = dict_fill_bmodes[filln]['t_startfill']
 tref_string = time.strftime("%a, %d %b %Y %H:%M:%S", time.localtime(t_ref))
 
 fill_dict = {}
-fill_dict.update(tm.parse_timber_file('fill_bunchbybunch_data_csvs/bunchbybunch_data_fill_%d.csv'%filln, verbose=False))
+fill_dict.update(tm.parse_timber_file('fill_bunchbybunch_data_csvs/bunchbybunch_data_fill_%s.csv'%filln, verbose=False))
 
 
 i_fig = 0
@@ -187,9 +191,9 @@ for beam in [1, 2]:
                             left=0.1, hspace=0.2, wspace=0.3)
         if n_fills > 1:
             subfill_str = string.ascii_lowercase[fill_curr]
-            fig1.suptitle('Fill %d: B%d, subfill %s, started on %s'%(filln, beam, subfill_str, tref_string), fontsize=20)
+            fig1.suptitle('Fill %s: B%d, subfill %s, started on %s'%(filln, beam, subfill_str, tref_string), fontsize=20)
         else:
-            fig1.suptitle('Fill %d: B%d, started on %s'%(filln, beam, tref_string), fontsize=20)
+            fig1.suptitle('Fill %s: B%d, started on %s'%(filln, beam, tref_string), fontsize=20)
 
 plt.show()
 
