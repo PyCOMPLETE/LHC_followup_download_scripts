@@ -30,8 +30,13 @@ import pytimber
 db = pytimber.LoggingDB(source='nxcals')
 #db = pytimber.LoggingDB(source='ldb')
 
+scaled_query_config = {
+    vv:{'scaleAlgorithm': 'REPEAT', 'scaleInterval': 'SECOND',
+        'scaleSize': '10'}
+        for vv in FBCT.variable_list() + BQM.variable_list()}
+
 save_variables_and_json(varlist=varlist, file_path_prefix=filepath,
                           save_json=saved_json, fills_dict=dict_fill_bmodes,
-                          db=db)
-
+                          db=db, scaled_query_config=scaled_query_config
+                          )
 
